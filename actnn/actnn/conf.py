@@ -7,11 +7,9 @@ def set_optimization_level(level):
         config.compress_activation = False
         config.adaptive_conv_scheme = config.adaptive_bn_scheme = False
     elif level == 'L1':    # 4-bit conv + 32-bit bn
-        config.activation_compression_bits = [4]
         config.adaptive_conv_scheme = config.adaptive_bn_scheme = False
         config.enable_quantized_bn = False
     elif level == 'L2':    # 4-bit
-        config.activation_compression_bits = [4]
         config.adaptive_conv_scheme = config.adaptive_bn_scheme = False
     elif level == 'L3':   # 2-bit
         pass
@@ -38,7 +36,7 @@ def set_optimization_level(level):
 class QuantizationConfig:
     def __init__(self):
         self.compress_activation = True
-        self.activation_compression_bits = [2, 8, 8]
+        self.activation_compression_bits = []
         self.pergroup = True
         self.perlayer = True
         self.initial_bits = 8
