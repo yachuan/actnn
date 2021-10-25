@@ -148,7 +148,11 @@ def add_parser_arguments(parser):
 
 def main(args):
     actnn.set_optimization_level(args.actnn_level)
-    config.activation_compression_bits = [args.cabits]
+    if args.actnn_level in {'L1', 'L2'}:
+        config.activation_compression_bits = [int(args.cabits)]
+        config.initial_bits = int(args.cabits)
+    else:
+        config.activation_compression_bits = [args.cabits]
 
     # Note: we use these flags for debugging. Users may simply use "actnn.set_optimization_level"
     # config.compress_activation = args.ca
