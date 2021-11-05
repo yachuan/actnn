@@ -4,12 +4,18 @@ import warnings
 
 def set_optimization_level(level):
     if level == 'L0':      # Do nothing
+        self.pergroup = False
+        self.perlayer = False
         config.compress_activation = False
         config.adaptive_conv_scheme = config.adaptive_bn_scheme = False
     elif level == 'L1':    # 4-bit conv + 32-bit bn
+        self.pergroup = True
+        self.perlayer = False
         config.adaptive_conv_scheme = config.adaptive_bn_scheme = False
         config.enable_quantized_bn = False
     elif level == 'L2':    # 4-bit
+        self.pergroup = True
+        self.perlayer = False
         config.adaptive_conv_scheme = config.adaptive_bn_scheme = False
     elif level == 'L3':   # 2-bit
         pass
@@ -64,4 +70,3 @@ class QuantizationConfig:
         self.debug_remove_relu = False
 
 config = QuantizationConfig()
-
